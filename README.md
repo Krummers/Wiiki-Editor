@@ -23,8 +23,8 @@ Follow these instructions to test a build. This requires [twine](https://pypi.or
 2. Make any changes to the code if you want to test them.
 3. Edit the version number of `pyproject.toml` to one that has not been used before, preferably one bigger than the previous one.
 4. Select your correct prefix for commands. In future steps, if `prefix` is used, use the correct prefix for your operating system. `py` for Windows, `python3` for Unix/macOS.
-5. Create an account at [TestPyPi](https://test.pypi.org/account/register/), verify it and create an API token. **Save this token!**
+5. Create an account at [TestPyPi](https://test.pypi.org/account/register/) and verify it.
 6. Execute the command `prefix -m build` in the root directory. This should create a `dist` folder with the module files.
-7. Execute the command `prefix -m twine upload --repository testpypi dist/*`. This will upload the module to a test server. Use `__token__` as username and your API token as password. Note that copy-pasting something into the password prompt in a Windows command prompt. Instead insert it under Edit > Paste.
+7. Execute the command `prefix -m twine upload --repository testpypi dist/*`. This will upload the module to a test server. Use `__token__` as a username and the API token (found in `api_token.txt`) as a password. Note that copy-pasting something into the password prompt in a Windows command prompt is broken. Instead insert it under Edit > Paste.
 8. Visit the "View at:" link and copy and run the command.
 9. Use `import wiiki_editor` in a Python environment to test the build.
