@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend ="hatchling.build"
+
+[project]
+name = "wiiki_editor"
+version = "0.1.2"
+authors = [{name = "Krummers", email = "krummers10@gmail.com"}]
+description = "A Python wrapper for wiki.tockdom.com"
+readme = "README.md"
+requires-python = ">=3.3"
+dependencies = ["mwclient"]
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: GNU General Public License v3 (GPLv3)", "Operating System :: OS Independent"]
+
+[project.urls]
+Repository = "https://github.com/Krummers/Wiiki-Editor"
