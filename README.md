@@ -17,7 +17,7 @@ Once your pull request is submitted, it will be reviewed by the project's mainta
 ## Bug reports and feature requests
 If you notice any bugs in the code or want to request a feature, please do so in the [Issues section](https://github.com/Krummers/Wiiki-Editor/issues).
 
-## Building distribution and testing model
+## Building distribution and testing module
 Follow these instructions to test a build. This requires [twine](https://pypi.org/project/twine/) to be installed.
 1. Copy this repository to your device.
 2. Make any changes to the code if you want to test them.
