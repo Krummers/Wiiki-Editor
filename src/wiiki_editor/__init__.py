@@ -11,7 +11,7 @@ class Wiiki(object):
         self.username = username
     
     def __repr__(self):
-        return "mwclient Wiiki module:\nLogged in as {}.".format(self.username)
+        return "mwclient Wiiki object:\nLogged in as {}.".format(self.username)
     
     def search(self, query, where = "title", namespace = 0):
         l = []
