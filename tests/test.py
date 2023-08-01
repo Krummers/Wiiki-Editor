@@ -1,9 +1,9 @@
 import dotenv as de
 import wiiki_editor as we
 
-info = dict(de.dotenv_values("info.key"))
-api = info["API"]
-username = info["USERNAME"]
-password = info["PASSWORD"]
+information = dict(de.dotenv_values("info.key"))
+api = information["API"]
+username = information["USERNAME"]
+password = information["PASSWORD"]
 
 wiiki = we.Wiiki(username, password, api)

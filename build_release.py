@@ -1,3 +1,4 @@
+import os
 import platform as pf
 import shutil as sh
 import subprocess as sp
@@ -41,7 +42,8 @@ else:
     commands = [["python3", "-m", "build"], \
     ["python3", "-m", "twine", "upload", "--repository", "testpypi", "dist/*", "--username", "__token__", "--password", api]]
 
-sh.rmtree("dist")
+if os.path.exists("dist"):
+    sh.rmtree("dist")
 
 for command in commands:
     sp.run(command)
