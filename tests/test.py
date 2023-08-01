@@ -7,3 +7,5 @@ username = information["USERNAME"]
 password = information["PASSWORD"]
 
 wiiki = we.Wiiki(username, password, api)
+
+lct = wiiki.article("List of Custom Tracks")

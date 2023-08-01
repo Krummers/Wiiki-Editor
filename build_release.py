@@ -1,5 +1,6 @@
 import os
 import platform as pf
+import requests as rq
 import shutil as sh
 import subprocess as sp
 
@@ -20,12 +21,20 @@ def rewrite_line(file, index, line):
     txt.writelines(l)
     txt.close()
 
+def download_data(link, location):
+    data = rq.get(link)
+    
+    with open(location, "wb") as k:
+        k.write(data.content)
+
+# Get the latest version number
+
+download_data("https://test.pypi.org/project/wiiki-editor/", "version.txt")
+version = read_file("version.txt")[227]
+version = version[version.rfind(" ") + 1:-1]
+
 # Bump the patch version number
 
-version_line = read_file("pyproject.toml")[6]
-begin = version_line.find("\"") + 1
-end = version_line.rfind("\"")
-version = version_line[begin:end]
 patch_version = int(version[version.rfind(".") + 1:]) + 1
 version = version[:version.rfind(".") + 1] + str(patch_version)
 

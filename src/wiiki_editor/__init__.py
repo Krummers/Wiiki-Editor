@@ -1,6 +1,7 @@
 import mwclient as mc
 
 from .article import Article
+from .listcustomtrack import ListCustomTrack
 
 class Wiiki(object):
     
@@ -12,6 +13,12 @@ class Wiiki(object):
     
     def __repr__(self):
         return "mwclient Wiiki object:\nLogged in as {}.".format(self.username)
+    
+    def article(self, title):
+        if title == "List of Custom Tracks":
+            return ListCustomTrack(self.wiiki)
+        else:
+            return Article(title, self.wiiki)
     
     def search(self, query, where = "title", namespace = 0):
         l = []
