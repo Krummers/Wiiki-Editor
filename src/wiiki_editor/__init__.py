@@ -1,7 +1,7 @@
 import mwclient as mc
 
 from .article import Article
-from .listcustomtrack import ListCustomTrack
+from .lists.listcustomtracks import ListCustomTracks, Table, Entry
 
 class Wiiki(object):
     
@@ -16,7 +16,7 @@ class Wiiki(object):
     
     def article(self, title):
         if title == "List of Custom Tracks":
-            return ListCustomTrack(self.wiiki)
+            return ListCustomTracks(self.wiiki)
         else:
             return Article(title, self.wiiki)
     
