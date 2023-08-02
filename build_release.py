@@ -32,6 +32,7 @@ def download_data(link, location):
 download_data("https://test.pypi.org/project/wiiki-editor/", "version.txt")
 version = read_file("version.txt")[227]
 version = version[version.rfind(" ") + 1:-1]
+os.remove("version.txt")
 
 # Bump the patch version number
 
