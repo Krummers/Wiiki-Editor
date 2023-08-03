@@ -17,5 +17,5 @@ If you notice any bugs in the code or want to request a feature, please do so in
 Follow these instructions to test a build. This requires [twine](https://pypi.org/project/twine/) to be installed.
 1. Copy this repository to your device.
 2. Make any changes to the code if you want to test them.
-3. Run `build_release.py` to upload and install the new module.
-4. Use `import wiiki_editor` in a Python environment to test the build.
+3. Run `build_install_release.py` to upload and install the new module. `build_release.py` and `install_release.py` can be activated seperately.
+4. Use `import wiiki_editor` in a Python environment to test the build. Currently, it is best to use the repository as a reference.

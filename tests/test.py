@@ -14,5 +14,3 @@ password = information["PASSWORD"]
 wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
-
-write_file("lct.table_new.txt", str(lct))
