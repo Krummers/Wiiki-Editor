@@ -14,3 +14,6 @@ password = information["PASSWORD"]
 wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
+entry = we.Entry("[[Terrific Tanzania]]", "[[Krummers]]", "2023-08-04", "&mdash;")
+lct.table += entry
+wiiki.edit("Test", str(lct), "Test")

@@ -7,18 +7,18 @@ class ListCustomTracks(object):
         self.object = mc.page.Page(wiiki, self.title)
         text = self.object.text()
         
-        self.top = text[:text.find("== Overview ==") - 1].split("\n")
+        self.templates = text[:text.find("== Overview ==") - 1].split("\n")
         self.overview = text[text.find("== Overview ==") + len("== Overview ==") + 1:text.find("== Track List ==") - 1]
         self.table = Table(text[text.find("== Track List ==") + len("== Track List ==") + 1:text.find("== Translations ==") - 1])
         self.translations = text[text.find("== Translations ==") + len("== Translations ==") + 1:text.rfind("\n\n[[") + 1]
-        self.bottom = text[text.rfind("\n\n[[") + len("\n\n[[") - 2:].split("\n")
+        self.categories = text[text.rfind("\n\n[[") + len("\n\n[[") - 2:].split("\n")
     
     def __str__(self):
-        string = "\n".join(self.top)
+        string = "\n".join(self.templates)
         string += "\n== Overview ==\n" + str(self.overview)
         string += "\n== Track List ==\n" + str(self.table)
         string += "\n== Translations ==\n" + str(self.translations)
-        string += "\n" + "\n".join(self.bottom) + "\n"
+        string += "\n" + "\n".join(self.categories) + "\n"
         return string
     
     def __repr__(self):
@@ -55,7 +55,7 @@ class Table(object):
                 column = text[2:text.find("\n|")].split(" || ")
                 sort = column[0][column[0].find("\"") + 1:column[0].rfind("\"")]
                 title = column[0][column[0].find("[["):column[0].find("]]") + 2]
-                entry = Entry(title, column[1], column[2], column[3], None, sort)
+                entry = Entry(title, column[1], column[2], column[3], 1, sort)
             elif "rowspan" in first_piece:
                 rows = int(text[len("| rowspan=")])
                 title = text[text.find("[["):text.find("]]") + 2]
@@ -95,20 +95,34 @@ class Table(object):
     def __add__(self, other):
         if type(other) != Entry:
             raise TypeError("only objects of type 'Entry' are supported")
-        pass
+        result = Table(str(self))
+        for entry in result.entries:
+            if entry.title == other.title:
+                entry.author.append(other.author)
+                entry.first.append(other.first)
+                entry.latest.append(other.append)
+                entry.rowspan += 1
+                return result
+        result.entries.append(other)
+        result.entries = sorted(result.entries, key = lambda entry:entry.sort \
+                  if entry.sort.startswith("[[") else "[[" + entry.sort + "]]")
+        return result
 
 class Entry(object):
     
-    def __init__(self, title, author, first, latest, rowspan = None, sort = None):
+    def __init__(self, title, author, first, latest, rowspan = 1, sort = None):
         self.title = title
         self.author = author
         self.first = first
         self.latest = latest
         self.rowspan = rowspan
-        self.sort = sort
+        if sort:
+            self.sort = sort
+        else:
+            self.sort = title
     
     def __str__(self):
-        if self.sort and self.rowspan:
+        if self.sort != self.title and self.rowspan > 1:
             string = "| data-sort-value=\"" + str(self.sort) + "\""
             string += " rowspan=" + str(self.rowspan) + "| "
             string += str(self.title) + "\n"
@@ -118,13 +132,13 @@ class Entry(object):
                 string += str(self.latest[x]) + "\n"
                 if x < self.rowspan - 1:
                     string += "|-\n"
-        elif self.sort:
+        elif self.sort != self.title:
             string = "| data-sort-value=\"" + str(self.sort) + "\"| "
             string += str(self.title) + " || "
             string += str(self.author) + " || "
             string += str(self.first) + " || "
             string += str(self.latest) + "\n"
-        elif self.rowspan:
+        elif self.rowspan > 1:
             string = "| rowspan=" + str(self.rowspan) + "| "
             string += str(self.title) + "\n"
             for x in range(self.rowspan):
@@ -148,8 +162,8 @@ class Entry(object):
         representation += "Author(s): " + str(self.author) + "\n"
         representation += "First: " + str(self.first) + "\n"
         representation += "Latest: " + str(self.latest)
-        if self.rowspan:
+        if self.rowspan > 1:
             representation += "\nRowspan of " + str(self.rowspan)
-        if self.sort:
+        if self.sort != self.title:
             representation += "\nData sort value: " + str(self.sort)
         return representation
