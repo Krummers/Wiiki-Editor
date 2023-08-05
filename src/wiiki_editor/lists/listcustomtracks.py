@@ -1,5 +1,7 @@
 import mwclient as mc
 
+from ..__init__ import HTMLSort
+
 class ListCustomTracks(object):
     
     def __init__(self, wiiki):
@@ -104,8 +106,7 @@ class Table(object):
                 entry.rowspan += 1
                 return result
         result.entries.append(other)
-        result.entries = sorted(result.entries, key = lambda entry:entry.sort \
-                  if entry.sort.startswith("[[") else "[[" + entry.sort + "]]")
+        result.entries = sorted(result.entries, key = lambda entry:entry.htmlsort)
         return result
 
 class Entry(object):
@@ -120,6 +121,7 @@ class Entry(object):
             self.sort = sort
         else:
             self.sort = title
+        self.htmlsort = HTMLSort(self.sort)
     
     def __str__(self):
         if self.sort != self.title and self.rowspan > 1:
