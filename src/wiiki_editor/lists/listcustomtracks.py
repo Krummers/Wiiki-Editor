@@ -1,6 +1,6 @@
 import mwclient as mc
 
-from ..__init__ import HTMLSort
+from ..wikistring import WikiString
 
 class ListCustomTracks(object):
     
@@ -106,8 +106,11 @@ class Table(object):
                 entry.rowspan += 1
                 return result
         result.entries.append(other)
-        result.entries = sorted(result.entries, key = lambda entry:entry.htmlsort)
+        result.sort()
         return result
+    
+    def sort(self):
+        self.entries = sorted(self.entries, key = lambda entry:entry.wikisort)
 
 class Entry(object):
     
@@ -121,7 +124,10 @@ class Entry(object):
             self.sort = sort
         else:
             self.sort = title
-        self.htmlsort = HTMLSort(self.sort)
+        if self.sort.startswith("[["):
+            self.wikisort = self.sort[2:-2]
+        else:
+            self.wikisort = self.sort
     
     def __str__(self):
         if self.sort != self.title and self.rowspan > 1:
