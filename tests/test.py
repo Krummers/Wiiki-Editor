@@ -20,6 +20,7 @@ password = information["PASSWORD"]
 wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
-entry = we.Entry("[[Carcanut Mall]]", "[[Krummers]]", "2023-08-04", "&mdash;")
-lct.table += entry
-wiiki.edit("Test", str(lct), "Test")
+# entry = we.Entry("[[Carcanut Mall]]", "[[Krummers]]", "2023-08-04", "&mdash;")
+# lct.table += entry
+lct.table.sort()
+wiiki.edit(lct.title, str(lct), "Sorted track list")

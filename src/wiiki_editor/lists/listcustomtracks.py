@@ -1,6 +1,6 @@
 import mwclient as mc
 
-from ..wikistring import WikiString
+from ..sortstring import sort_string
 
 class ListCustomTracks(object):
     
@@ -110,7 +110,7 @@ class Table(object):
         return result
     
     def sort(self):
-        self.entries = sorted(self.entries, key = lambda entry:entry.wikisort)
+        self.entries = sorted(self.entries, key = lambda entry:entry.sortstring)
 
 class Entry(object):
     
@@ -120,14 +120,11 @@ class Entry(object):
         self.first = first
         self.latest = latest
         self.rowspan = rowspan
-        if sort:
-            self.sort = sort
-        else:
-            self.sort = title
+        self.sort = sort if sort else title
         if self.sort.startswith("[["):
-            self.wikisort = self.sort[2:-2]
+            self.sortstring = sort_string(self.sort[2:-2])
         else:
-            self.wikisort = self.sort
+            self.sortstring = sort_string(self.sort)
     
     def __str__(self):
         if self.sort != self.title and self.rowspan > 1:
