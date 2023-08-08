@@ -4,7 +4,7 @@ build-backend ="hatchling.build"
 
 [project]
 name = "wiiki_editor"
-version = "0.1.71"
+version = "0.1.76"
 authors = [{name = "Krummers", email = "krummers10@gmail.com"}]
 description = "A Python wrapper for wiki.tockdom.com"
 readme = "README.md"

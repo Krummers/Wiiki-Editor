@@ -100,14 +100,29 @@ class Table(object):
         result = Table(str(self))
         for entry in result.entries:
             if entry.title == other.title:
-                entry.author.append(other.author)
-                entry.first.append(other.first)
-                entry.latest.append(other.append)
+                if entry.rowspan > 1:
+                    entry.author.append(other.author)
+                    entry.first.append(other.first)
+                    entry.latest.append(other.latest)
+                else:
+                    entry.author = [entry.author, other.author]
+                    entry.first = [entry.first, other.first]
+                    entry.latest = [entry.latest, other.latest]
                 entry.rowspan += 1
                 return result
         result.entries.append(other)
         result.sort()
         return result
+    
+    def update_release(self, title, date, author = None):
+        for entry in self.entries:
+            if entry.title == title and entry.rowspan > 1:
+                if entry.rowspan > 1:
+                    position = entry.author.index(author)
+                    entry.latest[position] = date
+                else:
+                    entry.latest = date
+                break
     
     def sort(self):
         self.entries = sorted(self.entries, key = lambda entry:entry.sortstring)
