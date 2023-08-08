@@ -116,7 +116,7 @@ class Table(object):
     
     def update_release(self, title, date, author = None):
         for entry in self.entries:
-            if entry.title == title and entry.rowspan > 1:
+            if entry.title == title:
                 if entry.rowspan > 1:
                     position = entry.author.index(author)
                     entry.latest[position] = date
