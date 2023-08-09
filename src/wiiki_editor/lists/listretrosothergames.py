@@ -4,7 +4,8 @@ from ..sortstring import sort_string
 class ListRetrosOtherGames(object):
     
     def __init__(self, wiiki):
-        text = Article("List of Retro Tracks from Non-Mario Kart Games", wiiki).text
+        self.title = "List of Retro Tracks from Non-Mario Kart Games"
+        text = Article(self.title, wiiki).text
         
         self.templates = text[:text.find("This is a") - 1].split("\n")
         self.overview = text[text.find("This is a"):text.find("{| class") - 1]

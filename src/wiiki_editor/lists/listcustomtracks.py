@@ -4,7 +4,8 @@ from ..sortstring import sort_string
 class ListCustomTracks(object):
     
     def __init__(self, wiiki):
-        text = Article("List of Custom Tracks", wiiki).text
+        self.title = "List of Custom Tracks"
+        text = Article(self.title, wiiki).text
         
         self.templates = text[:text.find("== Overview ==") - 1].split("\n")
         self.overview = text[text.find("== Overview ==") + len("== Overview ==") + 1:text.find("== Track List ==") - 1]
