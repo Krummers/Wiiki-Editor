@@ -1,7 +1,8 @@
 import mwclient as mc
 
 from .article import Article
-from .lists.listcustomtracks import ListCustomTracks, Table, Entry
+from .lists.listcustomtracks import ListCustomTracks, Table as LCTTable, Entry as LCTEntry
+from .lists.listretrosothergames import ListRetrosOtherGames, Table as LROGTable, Entry as LROGEntry
 
 class Wiiki(object):
     
@@ -17,6 +18,8 @@ class Wiiki(object):
     def article(self, title):
         if title == "List of Custom Tracks":
             return ListCustomTracks(self.wiiki)
+        elif title == "List of Retro Tracks from Non-Mario Kart Games":
+            return ListRetrosOtherGames(self.wiiki)
         else:
             return Article(title, self.wiiki)
     

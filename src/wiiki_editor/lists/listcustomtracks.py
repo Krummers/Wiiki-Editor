@@ -1,13 +1,10 @@
-import mwclient as mc
-
+from ..article import Article
 from ..sortstring import sort_string
 
 class ListCustomTracks(object):
     
     def __init__(self, wiiki):
-        self.title = "List of Custom Tracks"
-        self.object = mc.page.Page(wiiki, self.title)
-        text = self.object.text()
+        text = Article("List of Custom Tracks", wiiki).text
         
         self.templates = text[:text.find("== Overview ==") - 1].split("\n")
         self.overview = text[text.find("== Overview ==") + len("== Overview ==") + 1:text.find("== Track List ==") - 1]
@@ -24,7 +21,7 @@ class ListCustomTracks(object):
         return string
     
     def __repr__(self):
-        return "List of Custom Tracks article"
+        return str(self.title) + " article"
 
 class Table(object):
     
