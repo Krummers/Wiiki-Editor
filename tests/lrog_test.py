@@ -21,4 +21,4 @@ wiiki = we.Wiiki(username, password, api)
 
 lrog = wiiki.article("List of Retro Tracks from Non-Mario Kart Games")
 
-wiiki.edit("Test", str(lrog), "Test")
+wiiki.edit(lrog.title, str(lrog), "Sorted list")

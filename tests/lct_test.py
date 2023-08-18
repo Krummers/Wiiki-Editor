@@ -20,10 +20,13 @@ password = information["PASSWORD"]
 wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
-for name in ["Krummers", "KantoEpic", "Trainiax", "Atlas", "Bruh de la Boi"]:
-    entry = we.LCTEntry("[[1-1 but it's in Mario Kart Wii]]", "[[{}]]".format(name), "2023-08-04", "&mdash;")
-    lct.table += entry
-lct.table.update_release("[[1-1 but it's in Mario Kart Wii]]", "2023-08-08", "[[Atlas]]")
-lct.table.update_release("[[10 Jumps to Victory]]", "2023-08-09")
-lct.table.sort()
-wiiki.edit("Test", str(lct), "Test")
+# for name in ["Krummers", "KantoEpic", "Trainiax", "Atlas", "Bruh de la Boi"]:
+#     entry = we.LCTEntry("[[1-1 but it's in Mario Kart Wii]]", "[[{}]]".format(name), "2023-08-04", "&mdash;")
+#     lct.table += entry
+# lct.table.update_release("[[1-1 but it's in Mario Kart Wii]]", "2023-08-08", "[[Atlas]]")
+# lct.table.update_release("[[10 Jumps to Victory]]", "2023-08-09")
+# lct.table.sort()
+
+lct.table += we.LCTEntry("[[Iconic Islands]]", "[[EpicCrossover]]", "2023-08-13", "&mdash;")
+
+wiiki.edit(lct.title, str(lct), "Added [[Iconic Islands]]")
