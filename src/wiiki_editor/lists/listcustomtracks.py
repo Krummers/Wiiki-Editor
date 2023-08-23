@@ -1,4 +1,5 @@
 from ..article import Article
+from ..templates.link import Link
 from ..sortstring import sort_string
 
 class ListCustomTracks(object):
@@ -35,10 +36,10 @@ class Table(object):
         while True:
             first_piece = text[:text.find("]]")]
             if "data-sort-value" in first_piece and "rowspan" in first_piece:
-                sort = first_piece[first_piece.find("\"") + 1:first_piece.rfind("\"")]
-                text = text.replace(" data-sort-value=\"" + sort + "\"", "")
+                data_sort = first_piece[first_piece.find("\"") + 1:first_piece.rfind("\"")]
+                text = text.replace(" data-sort-value=\"" + data_sort + "\"", "")
                 rows = int(text[len("| rowspan=")])
-                title = text[text.find("[["):text.find("]]") + 2]
+                title = text[text.find("[[") + 2:text.find("]]")]
                 text = text[text.find("\n") + 1:]
                 authors = []
                 firsts = []
@@ -50,15 +51,15 @@ class Table(object):
                     latests.append(column[2])
                     if x < rows - 1:
                         text = text[text.find("|-") + 3:]
-                entry = Entry(title, authors, firsts, latests, rows, sort)
+                entry = Entry(title, authors, firsts, latests, rows, data_sort)
             elif "data-sort-value" in first_piece:
                 column = text[2:text.find("\n|")].split(" || ")
-                sort = column[0][column[0].find("\"") + 1:column[0].rfind("\"")]
-                title = column[0][column[0].find("[["):column[0].find("]]") + 2]
-                entry = Entry(title, column[1], column[2], column[3], 1, sort)
+                data_sort = column[0][column[0].find("\"") + 1:column[0].rfind("\"")]
+                title = column[0][column[0].find("[[") + 2:column[0].find("]]")]
+                entry = Entry(title, column[1], column[2], column[3], 1, data_sort)
             elif "rowspan" in first_piece:
                 rows = int(text[len("| rowspan=")])
-                title = text[text.find("[["):text.find("]]") + 2]
+                title = text[text.find("[[") + 2:text.find("]]")]
                 text = text[text.find("\n") + 1:]
                 authors = []
                 firsts = []
@@ -73,7 +74,8 @@ class Table(object):
                 entry = Entry(title, authors, firsts, latests, rows)
             else:
                 column = text[2:text.find("\n|")].split(" || ")
-                entry = Entry(column[0], column[1], column[2], column[3])
+                title = column[0][2:-2]
+                entry = Entry(title, column[1], column[2], column[3])
             
             self.entries.append(entry)
             
@@ -127,21 +129,18 @@ class Table(object):
 
 class Entry(object):
     
-    def __init__(self, title, author, first, latest, rowspan = 1, sort = None):
-        self.title = title
+    def __init__(self, title, author, first, latest, rowspan = 1, data_sort = None):
+        self.title = Link(title)
         self.author = author
         self.first = first
         self.latest = latest
         self.rowspan = rowspan
-        self.sort = sort if sort else title
-        if self.sort.startswith("[["):
-            self.sortstring = sort_string(self.sort[2:-2])
-        else:
-            self.sortstring = sort_string(self.sort)
+        self.data_sort = data_sort if data_sort else self.title.url()
+        self.sortstring = sort_string(self.data_sort)
     
     def __str__(self):
-        if self.sort != self.title and self.rowspan > 1:
-            string = "| data-sort-value=\"" + str(self.sort) + "\""
+        if self.data_sort != self.title.url() and self.rowspan > 1:
+            string = "| data-sort-value=\"" + str(self.data_sort) + "\""
             string += " rowspan=" + str(self.rowspan) + "| "
             string += str(self.title) + "\n"
             for x in range(self.rowspan):
@@ -150,8 +149,8 @@ class Entry(object):
                 string += str(self.latest[x]) + "\n"
                 if x < self.rowspan - 1:
                     string += "|-\n"
-        elif self.sort != self.title:
-            string = "| data-sort-value=\"" + str(self.sort) + "\"| "
+        elif self.data_sort != self.title.url():
+            string = "| data-sort-value=\"" + str(self.data_sort) + "\"| "
             string += str(self.title) + " || "
             string += str(self.author) + " || "
             string += str(self.first) + " || "
@@ -182,6 +181,6 @@ class Entry(object):
         representation += "Latest: " + str(self.latest)
         if self.rowspan > 1:
             representation += "\nRowspan of " + str(self.rowspan)
-        if self.sort != self.title:
-            representation += "\nData sort value: " + str(self.sort)
+        if self.data_sort != self.title:
+            representation += "\nData sort value: " + str(self.data_sort)
         return representation

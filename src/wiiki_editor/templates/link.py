@@ -24,3 +24,7 @@ class Link(object):
 
     def __repr__(self):
         return str(self)
+    
+    def url(self):
+        url = str(self.link)
+        return url if "|" not in url else url[:url.find("|")]
