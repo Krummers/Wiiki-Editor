@@ -39,23 +39,7 @@ class Table(object):
             
             first_piece = text[:text.find("]]")]
             if "data-sort-value" in first_piece and "rowspan" in first_piece:
-                # not present in list, fabricate it
-                sort = first_piece[first_piece.find("\"") + 1:first_piece.rfind("\"")]
-                text = text.replace(" data-sort-value=\"" + sort + "\"", "")
-                rows = int(text[len("| rowspan=")])
-                title = text[text.find("[["):text.find("]]") + 2]
-                text = text[text.find("\n") + 1:]
-                authors = []
-                firsts = []
-                latests = []
-                for x in range(rows):
-                    column = text[2:text.find("\n|")].split(" || ")
-                    authors.append(column[0])
-                    firsts.append(column[1])
-                    latests.append(column[2])
-                    if x < rows - 1:
-                        text = text[text.find("|-") + 3:]
-                entry = Entry(title, authors, firsts, latests, rows, sort)
+                raise NotImplementedError("this type does not exist in the table yet")
             elif "data-sort-value" in first_piece:
                 column = text[2:text.find("\n|-")].split("\n| ")
                 sort = column[0][column[0].find("\"") + 1:column[0].rfind("\"")]

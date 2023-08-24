@@ -21,6 +21,6 @@ wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
 
-# lct.table += we.LCTEntry("Kingdom Lake", "[[Waltz]]", "2023-08-20", "&mdash;")
+# lct.table += we.LCTEntry("[[Kingdom Lake]]", "[[Waltz]]", "2023-08-20", "&mdash;")
 
-wiiki.edit(lct.title, str(lct), "Added Kingdom Lake.")
+wiiki.edit("Test", str(lct), "Test")

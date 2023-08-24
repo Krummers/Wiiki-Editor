@@ -1,30 +1,32 @@
 class Link(object):
     
     def __init__(self, string):
-        if "|" in string:
-            self.link = string[:string.find("|")]
-            self.display1 = string[string.find("|") + 1:]
-            self.display2 = None
-        elif "http" in string:
-            self.link = string[:string.find(" ")]
-            self.display2 = string[string.find(" ") + 1:]
-            self.display1 = None
+        if string.startswith("[[") and "|" in string:
+            self.link = string[2:string.find("|")]
+            self.display = string[string.find("|") + 1:-2]
+            self.brackets = 2
+        elif string.startswith("[["):
+            self.link = string[2:-2]
+            self.display = None
+            self.brackets = 2
+        elif string.startswith("["):
+            self.link = string[1:string.find(" ")]
+            self.display = string[string.find(" ") + 1:-1]
+            self.brackets = 1
         else:
             self.link = string
-            self.display1 = None
-            self.display2 = None
+            self.display = None
+            self.brackets = 0
     
     def __str__(self):
-        if self.display1:
-            return "[[" + str(self.link) + "|" + str(self.display1) + "]]"
-        elif self.display2:
-            return "[" + str(self.link) + " " + str(self.display2) + "]"
+        if self.brackets == 2 and self.display is None:
+            return "[[" + self.link + "]]"
+        elif self.brackets == 2 and self.display:
+            return "[[" + self.link + "|" + self.display + "]]"
+        elif self.brackets == 1:
+            return "[" + self.link + " " + self.display + "]"
         else:
-            return "[[" + str(self.link) + "]]"
-
+            return self.link
+    
     def __repr__(self):
         return str(self)
-    
-    def url(self):
-        url = str(self.link)
-        return url if "|" not in url else url[:url.find("|")]
