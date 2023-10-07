@@ -7,7 +7,7 @@ from .lists.listretrosothergames import ListRetrosOtherGames, Table as LROGTable
 class Wiiki(object):
     
     def __init__(self, username, password, api):
-        wiiki = mc.Site("wiki.tockdom.com", clients_useragent = api)
+        wiiki = mc.Site("wiki.tockdom.com", custom_headers = {"User-Agent": api})
         wiiki.login(username, password)
         self.wiiki = wiiki
         self.username = username

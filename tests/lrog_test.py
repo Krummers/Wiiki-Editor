@@ -21,4 +21,11 @@ wiiki = we.Wiiki(username, password, api)
 
 lrog = wiiki.article("List of Retro Tracks from Non-Mario Kart Games")
 
-wiiki.edit(lrog.title, str(lrog), "Sorted list")
+# lrog.tracks += we.LROGEntry("Flower Road", "FGKR", \
+#                             "''[[wikipedia:Family Go-Kart Racing|Family Go-Kart Racing]]''", \
+#                             "{{yes|Cool20}}", "2023-08-28", "&mdash;")
+# lrog.tracks += we.LROGEntry("Happy Up-Down", "FGKR", \
+#                             "''[[wikipedia:Family Go-Kart Racing|Family Go-Kart Racing]]''", \
+#                             "{{yes|Cool20}}", "2023-08-28", "&mdash;")
+
+wiiki.edit(lrog.title, str(lrog), "Added two new tracks.")

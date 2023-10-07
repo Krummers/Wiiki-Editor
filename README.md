@@ -6,7 +6,6 @@ This repository is a Python module that allows easy bot editing to the [Wiiki](h
 * A bot account with password and API key on the Wiiki.
 * [python-dotenv](https://pypi.org/project/python-dotenv/), a module that extracts sensitive information from files.
 * [mwclient](https://pypi.org/project/mwclient/), a module that is a Python wrapper for the MediaWiki API.
-  * In addition, it requires a small code edit to work with the Wiiki. In `mwclient/client.py` line 143 should be `ua = clients_useragent`. This way, CloudFlare can detect your own personal API key, instead of the module appending its own.
 
 ## Contributing
 To contribute to this editor, follow these steps:

@@ -18,11 +18,10 @@ def main():
     # Get the latest version number
     
     download_data("https://test.pypi.org/project/wiiki-editor/", "version.txt")
-    version = read_file("version.txt")[227]
-    version = version[version.rfind(" ") + 1:-1]
+    version = read_file("version.txt")[732].strip()
     os.remove("version.txt")
     
-    # Install the new module twice (because apparently it is needed)
+    # Install the new module twice
     for x in range(2):
         sp.run(["pip", "install", "-i", "https://test.pypi.org/simple/", "wiiki-editor=={}".format(version)])
 

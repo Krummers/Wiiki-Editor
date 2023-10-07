@@ -21,6 +21,11 @@ wiiki = we.Wiiki(username, password, api)
 
 lct = wiiki.article("List of Custom Tracks")
 
-# lct.table += we.LCTEntry("[[Kingdom Lake]]", "[[Waltz]]", "2023-08-20", "&mdash;")
+lct.table += we.LCTEntry("[[Back_RM_Race]]", "[[TheGamingBram]]", "2023-09-10", "&mdash;")
+lct.table += we.LCTEntry("[[Drift Ridge]]", "[[TheGamingBram]]", "2023-09-10", "&mdash;")
+lct.table += we.LCTEntry("[[Rocky Rocky Loop]]", "[[TheGamingBram]]", "2023-09-10", "&mdash;")
+lct.table += we.LCTEntry("[[Painted Swamp Circuit]]", "[[TheGamingBram]]", "2023-09-10", "&mdash;")
+lct.table += we.LCTEntry("[[Sparkling Pass]]", "[[EpicCrossover]]", "2023-09-10", "&mdash;")
+lct.table += we.LCTEntry("[[Torpedo Ship]]", "ignis", "2023-09-10", "&mdash;")
 
-wiiki.edit("Test", str(lct), "Test")
+# wiiki.edit(lct.title, str(lct), "Added some new custom tracks.")
