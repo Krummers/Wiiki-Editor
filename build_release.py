@@ -29,20 +29,17 @@ def download_data(link, location):
 
 def main():
     # Get the latest version number
-    
     download_data("https://test.pypi.org/project/wiiki-editor/", "version.txt")
-    version = read_file("version.txt")[732].strip()
+    version = read_file("version.txt")[8]
+    version = version[version.find(">") + 1:version.rfind("<")]
     os.remove("version.txt")
     
-    # Bump the patch version number
-    
-    patch_version = int(version[version.rfind(".") + 1:]) + 1
-    version = version[:version.rfind(".") + 1] + str(patch_version)
+    # Bump the version number
+    version = version[:version.rfind(".") + 1] + str(int(version) + 1)
     
     rewrite_line("pyproject.toml", 7, "version = \"{}\"\n".format(version))
     
     # Upload new module to the server
-    
     api = read_file("api_token.txt")[0]
     
     if pf.uname()[0] == "Windows":
