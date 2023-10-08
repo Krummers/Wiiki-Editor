@@ -54,9 +54,9 @@ class Wiiki(object):
         page = Article(title, self.wiiki)
         return page.text
     
-    def edit(self, title, text, summary = ""):
+    def edit(self, title, text, summary = "", minor = False):
         page = Article(title, self.wiiki)
-        page.object.edit(text, summary)
+        page.object.edit(text, summary, minor)
     
     def move(self, title, new_title, summary = "", redirect = False):
         page = Article(title, self.wiiki)
